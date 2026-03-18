@@ -8,7 +8,7 @@
 
 ## Routess
 
-- POST /registrar  
+- POST /registrar 
 - GET /listar
 - PUT /editar/:id 
 - DELETE /deletar/:id

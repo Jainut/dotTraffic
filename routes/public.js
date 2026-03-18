@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 const router = express.Router()
 
-router.post('/registrar', async (req, res) => {
+router.post('/registrarTransformador', async (req, res) => {
     const transformador = req.body
 
     try {
@@ -31,7 +31,7 @@ router.post('/registrar', async (req, res) => {
 
 })
 
-router.get('/listar', async (req, res) => {
+router.get('/listarTransformador', async (req, res) => {
     const consult = await prisma.transformador.findMany()
 
     console.log(JSON.stringify(consult, null, 2))
@@ -39,7 +39,7 @@ router.get('/listar', async (req, res) => {
     res.json(consult)
 })
 
-router.delete('/deletar/:numeroDeSerie', async (req, res) => {
+router.delete('/deletarTransformador/:numeroDeSerie', async (req, res) => {
         const { numeroDeSerie } = req.params
 
         try {
@@ -59,7 +59,7 @@ router.delete('/deletar/:numeroDeSerie', async (req, res) => {
         }
     )
 
-router.put('/editar/:numeroDeSerie', async (req, res) => {
+router.put('/editarTransformador/:numeroDeSerie', async (req, res) => {
     const { numeroDeSerie } = req.params
     const data = req.body
 
