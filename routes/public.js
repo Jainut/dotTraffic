@@ -1,30 +1,27 @@
 import express from 'express'
 import { PrismaClient } from '@prisma/client'
-import bcrypt, { genSalt } from 'bcrypt'
 
 const prisma = new PrismaClient()
 const router = express.Router()
 
 router.post('/registrar', async (req, res) => {
-    const user = req.body
-
-    const salt = await bcrypt.genSalt(10)
-    const hashPassword = await bcrypt.hash(user.password, salt)
+    const transformador = req.body
 
     try {
-        if (user.name == "" || user.email == "" || user.password == "") {
+        if (transformador.modelo == "" || transformador.numeroDeSerie == "" || transformador.statusProducao == "") {
             return res.status(500).json({message: "Campos inválidos, tente novamente"})
         } else {
-        const newUser = await prisma.user.create ( {
+        const newTransformador = await prisma.transformador.create ( {
         data: {
-            name: user.name,
-            email: user.email,
-            curse: user.curse,
-            turma: user.turma,
-            phone: user.phone,
-            password: hashPassword
+            numeroDeSerie: transformador.numeroDeSerie,
+            modelo: transformador.modelo,
+            potenciaKva: transformador.potenciaKva,
+            statusProducao: transformador.statusProducao,
+            temperatura: transformador.temperatura,
         }
         })
+
+        return res.status(201).json({message:`Sucesso! Transformador registrado`}) 
     }
     }catch (err) {
         console.error(err)
@@ -32,28 +29,27 @@ router.post('/registrar', async (req, res) => {
         return res.status(500).json({message: "Servidor instável, tente novamente mais tarde"})
     }
 
-    res.status(200).json({message:`Sucesso! Usuário registrado êxito!`}) 
 })
 
 router.get('/listar', async (req, res) => {
-    const consult = await prisma.user.findMany()
+    const consult = await prisma.transformador.findMany()
 
     console.log(JSON.stringify(consult, null, 2))
 
     res.json(consult)
 })
 
-router.delete('/deletar/:id', async (req, res) => {
-        const { id } = req.params
+router.delete('/deletar/:numeroDeSerie', async (req, res) => {
+        const { numeroDeSerie } = req.params
 
         try {
-            const userDeleted = await prisma.user.delete ({
+            const transformadorDeleted = await prisma.transformador.delete ({
                 where: {
-                    id: id
+                    numeroDeSerie: Number(numeroDeSerie)
                 }
             })
 
-            res.json(userDeleted)
+            res.json(transformadorDeleted)
 
             } catch (err) {
                 console.error(err)
@@ -63,26 +59,24 @@ router.delete('/deletar/:id', async (req, res) => {
         }
     )
 
-router.put('/editar/:id', async (req, res) => {
-    const { id } = req.params
+router.put('/editar/:numeroDeSerie', async (req, res) => {
+    const { numeroDeSerie } = req.params
     const data = req.body
-    const salt = await bcrypt.genSalt(10)
-    const hashPassword = await bcrypt.hash(data.password, salt)
 
     try {
-        const userEdit = await prisma.user.update ({
+        const transformadorEdit = await prisma.transformador.update ({
             where: {
-                id: id
+                numeroDeSerie: Number(numeroDeSerie)
             },
             data: {
-                name: data.name,
-                email: data.email,
-                curse: data.curse,
-                turma: data.turma,
-                password: hashPassword
+                numeroDeSerie: data.numeroDeSerie,
+                modelo: data.modelo,
+                potenciaKva: data.potenciaKva,
+                statusProducao: data.statusProducao,
+                temperatura: data.temperatura
             }
         })
-        res.json(userEdit)
+        res.json(transformadorEdit)
 
     } catch(err) {
         console.log(err)

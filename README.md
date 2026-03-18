@@ -1,4 +1,4 @@
-# My first API using express
+# hateU API modified to another project
 
 ## Technologies
 - Node.js

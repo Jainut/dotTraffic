@@ -13,12 +13,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id   String @id @default(uuid())
-  name String
-  email String @unique
-  curse String
-  turma String
-  phone String @unique
-  password String
+model Transformador {
+  idTransformador   String @id @default(uuid())
+  numeroDeSerie Int @unique
+  modelo String
+  potenciaKva Decimal @db.Decimal(10, 2)
+  statusProducao String
+  temperatura Decimal @db.Decimal(10, 2)
+  dataRegistro DateTime @default(now())
+
+  logs LogEventos[]
+}
+
+model LogEventos {
+  idLog String @id @default(uuid())
+  idTransformador String
+  tipoEvento String
+  descEvento String
+  dataHora DateTime @default(now())
+  
+  transformador Transformador @relation(fields: [idTransformador], references: [idTransformador])
 }
