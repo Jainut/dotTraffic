@@ -6,9 +6,18 @@
 - Prisma
 - Supabase (PostgreSQL)
 
-## Routess
+## Routes
+
+### Transformador
 
 - POST /registrarTransformador
 - GET /listarTransformador
 - PUT /editarTransformador/:numeroDeSerie
 - DELETE /deletarTransformador/:numeroDeSerie
+
+### Logs Eventos
+
+- POST /registrarLog
+- GET /listarLog
+- PUT /editarLog/:idTrans
+- DELETE /deletarLog/:idTrans
