@@ -27,10 +27,10 @@ model Transformador {
 
 model LogEventos {
   idLog String @id @default(uuid())
-  idTransformador String
+  idTrans String
   tipoEvento String
   descEvento String
   dataHora DateTime @default(now())
   
-  transformador Transformador @relation(fields: [idTransformador], references: [idTransformador])
+  transformador Transformador @relation(fields: [idTrans], references: [idTransformador])
 }
