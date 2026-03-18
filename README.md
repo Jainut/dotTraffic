@@ -5,7 +5,6 @@
 - Express
 - Prisma
 - Supabase (PostgreSQL)
-- Bcrypt
 
 ## Routess
 
