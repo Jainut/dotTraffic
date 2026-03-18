@@ -21,3 +21,7 @@
 - GET /listarLog
 - PUT /editarLog/:idTrans
 - DELETE /deletarLog/:idTrans
+
+## Obs
+
+If you pull from the repository, rename '.envExample' to just '.env' in your local project and put your database URL there 
