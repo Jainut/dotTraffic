@@ -96,7 +96,11 @@ router.post('/registrarLog', async (req, res) => { // Rota padrão para registar
         data: {
             tipoEvento: log.tipoEvento,
             descEvento: log.descEvento,
-            idTransformador: log.idTransformador
+            transformador: {
+                connect: {
+                idTransformador: log.idTransformador
+                }
+            }
         }
         })
 
